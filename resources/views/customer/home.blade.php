@@ -4,6 +4,30 @@
 @endsection
 
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+<style>
+    img.slick-slide{
+            height: 350px;
+			width: 100%;
+
+		}
+		.slider-full-caption{
+			position: absolute;
+			top: 150px;
+			left: 50px;
+			color: #fff;
+			font-size: 68px;
+		}
+
+footer{
+    background-color: #212529;
+    padding-bottom: 20px;
+    color: #fff;
+}
+
+</style>
+
 <header class="py-5" style="
 background: #0F2027;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
@@ -12,9 +36,38 @@ background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+
 ">
     <div class="container px-4 px-lg-5 my-2">
         <div class="text-center text-white">
-            
-            <p class="lead fw-normal text-white mb-0">All Productss</p>
             <br>
+            <div class="slider">
+            <div class="slider-full">
+                <div class="single-item">
+                    <div class="item"><img class="slick-slide" src="assets/img/banner1.png" alt="">
+                        <div class="slider-full-caption">
+                        </div>
+                    </div>
+
+                    <div class="item"><img class="slick-slide" src="assets/img/banner2.jpg" alt="">
+                        <div class="slider-full-caption">
+                        </div>
+                    </div>
+
+                    <div class="item"><img class="slick-slide" src="assets/img/banner3.jpg" alt="">
+                        <div class="slider-full-caption">
+                        </div>
+                    </div>
+
+                    <div class="item"><img class="slick-slide" src="assets/img/banner4.jpg" alt="">
+                        <div class="slider-full-caption">
+                        </div>
+                    </div>
+
+                    <div class="item"><img class="slick-slide" src="assets/img/banner5.jpg" alt="">
+                        <div class="slider-full-caption">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
             <div class="row">
                     <div class="col-10 mx-auto">
                         <input type="text" id="search-bar" placeholder="Find a product?">
@@ -25,10 +78,10 @@ background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+
                        @foreach($categories as $category)
                            <button class="btn btn-primary btn-sm filter_category text-uppercase" filter="category" category_id="{{$category->id}}">{{$category->name ?? ''}}</button>
                        @endforeach<br><br>
-                            <button class="btn btn-success btn-sm filter_category text-uppercase" filter="onhand">Products</button>
+                            <!-- <button class="btn btn-success btn-sm filter_category text-uppercase" filter="onhand">Products</button>
                             <button class="btn btn-info btn-sm filter_category text-uppercase text-white" filter="new_arrivals">New Arrivals</button>
                             
-                            
+                             -->
 
                             <br><br>
                     </div>
@@ -36,10 +89,9 @@ background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+
         </div>
     </div>
 </header>
-<section class="py-5" style="margin-top: -100px; min-height: 60vh;" >
+<section class="py-5" >
         <div class="card" style="border: 1px solid #111;">
             <div class="card-body">
-                
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center" id="product_list">
                     @foreach($products as $product)
                         <div class="col mb-5">
@@ -143,11 +195,11 @@ background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+
                 <h1></h1>
                 <h1></h1>
             </div>
-            <div class="col-3 p-3 pt-3">
+            <div class="col-3 p-3 pt-3 ">
                 <h3>Contact us</h3>
-                <a href="/"><img src="assets/img/Facebook-logo.webp" alt="" style = "width:20%;margin-left:-11px;">Facebook</a>
+                <a href="/" class="text-white"><img src="assets/img/Facebook-logo.webp" alt="" style = "width:20%;margin-left:-11px;"></a>
                 <br>
-                <a href="/"><img src="assets/img/instagram-Logo-PNG-Transparent-Background-download.webp" alt="" style = "width:14%;">Instagram</a>
+                <a href="/" class="text-white"><img src="assets/img/instagram-Logo-PNG-Transparent-Background-download.webp" alt="" style = "width:14%;"></a>
                 <br>
                 <img src="assets/img/phone_logo.webp" alt="" style = "width:13%">+63-9516439050
             </div>
@@ -163,7 +215,19 @@ background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 <script>
+    $('.single-item').slick({
+  		slidesToShow: 1,
+  		slidesToScroll: 1,
+  		arrows: true,
+  		fade: true,
+          dots: true,
+  		autoplay: true,
+  		autoplaySpeed: 1000,
+  		speed: 3000,
+	});
+
     var product_id = null;
 
     $(document).on('click', '.order', function(){
@@ -304,7 +368,7 @@ background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+
                         $.each(data.products, function(key,value){
                             products += '<div class="col mb-5">'
                                 products += '<div class="card h-100">'
-                                    products += '<div class="badge  '+value.status_color+' text-white position-absolute text-uppercase" style="top: 0.5rem; left: 0.5rem">'+value.status+'</div>'
+                                   
                                     products += '<div class="badge bg-dark text-white position-absolute text-uppercase" style="top: 0.5rem; right: 0.5rem">'+value.category+'</div>'
                                     products += '<img class="card-img-top" width="200" height="190" src="/assets/img/products/'+value.image+'" alt="'+value.image+'" />'
                                         products += '<div class="card-body p-4">'
@@ -348,7 +412,7 @@ background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+
                         $.each(data.products, function(key,value){
                             products += '<div class="col mb-5">'
                                 products += '<div class="card h-100">'
-                                    products += '<div class="badge  '+value.status_color+' text-white position-absolute text-uppercase" style="top: 0.5rem; left: 0.5rem">'+value.status+'</div>'
+                                   
                                     products += '<div class="badge bg-dark text-white position-absolute text-uppercase" style="top: 0.5rem; right: 0.5rem">'+value.category+'</div>'
                                     products += '<img class="card-img-top" width="200" height="190" src="/assets/img/products/'+value.image+'" alt="'+value.image+'" />'
                                         products += '<div class="card-body p-4">'
