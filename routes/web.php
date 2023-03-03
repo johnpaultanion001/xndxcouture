@@ -56,7 +56,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
      Route::put('staff_list/{staff}', 'CustomerListController@staff_update')->name('staff.update');
 
      // Change Status
-     Route::put('customer/status/{user}', 'CustomerListController@status')->name('customer.status');
+     Route::put('customer/status/{user}', 'CustomerListController@status')->name('customer.status12');
     
      // Categories
      Route::resource('categories', 'CategoryController');
