@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $userrole = auth()->user()->role;
-        if($userrole == 'admin'){
+        if($userrole != 'customer'){
 
             $products = Product::latest()->get();
             $products_today = Product::whereDay('created_at', '=', date('d'))->get();

@@ -15,10 +15,10 @@
                     <div class="card-header border-0">
                         <div class="row ">
                             <div class="col-md-10">
-                                <h4 class="mb-0 text-uppercase" id="titletable">Manage Collections</h4>
+                                <h4 class="mb-0 text-uppercase" id="titletable">Manage Category</h4>
                             </div>
                             <div class="col-md-2">
-                                <button type="button" name="create_record" id="create_record" class="text-uppercase create_record btn btn-sm btn-primary">NEW COLLECTION</button>
+                                <button type="button" name="create_record" id="create_record" class="text-uppercase create_record btn btn-sm btn-dark">NEW CATEGORY</button>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                     <tr>
                                         <td>
                                          
-                                            <button type="button" name="edit" edit="{{  $category->id ?? '' }}"  class="edit btn btn-sm btn-primary">Edit</button>
+                                            <button type="button" name="edit" edit="{{  $category->id ?? '' }}"  class="edit btn btn-sm btn-success">Edit</button>
                                             <button type="button" name="remove" remove="{{  $category->id ?? '' }}" class="remove btn btn-sm btn-danger">Remove</button>
                                             
                                         </td>
@@ -127,7 +127,7 @@ $(document).on('click', '#create_record', function(){
     $('#formModal').modal('show');
     $('#myForm')[0].reset();
     $('.form-control').removeClass('is-invalid')
-    $('.modal-title').text('ADD COLLECTION');
+    $('.modal-title').text('ADD CATEGORY');
     $('#action_button').val('Submit');
     $('#action').val('Add');
 });
@@ -195,7 +195,7 @@ $('#myForm').on('submit', function(event){
 
 $(document).on('click', '.edit', function(){
     $('#formModal').modal('show');
-    $('.modal-title').text('EDIT COLLECTION');
+    $('.modal-title').text('EDIT CATEGORY');
     $('#myForm')[0].reset();
     $('.form-control').removeClass('is-invalid');
 

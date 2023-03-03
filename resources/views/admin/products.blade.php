@@ -23,7 +23,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <select name="category_dd" id="category_dd" class="select2" style="width: 100%;">
-                                        <option value="">FILTER COLLECTION</option>
+                                        <option value="">FILTER CATEGORY</option>
                                         @foreach($categories as $category)
                                             <option value="{{$category->name}}">{{$category->name}}</option>
                                         @endforeach
@@ -39,7 +39,7 @@
                                 <tr>
                                     <th scope="col">ACTIONS</th>
                                     <th scope="col">ID</th>
-                                    <th scope="col">IMAGE</th>
+                                    <th scope="col">IMAGE 1</th>
                                     <th  scope="col">CATEGORY</th>
                                     
                                     <th scope="col">NAME</th>
@@ -47,6 +47,7 @@
                                     <th scope="col">STOCK</th>
                                     <th scope="col">UNIT PRICE</th>
                                     <th scope="col">PROFIT</th>
+                                    <th scope="col">DISCOUNTED</th>
                                     <th scope="col">CREATED AT</th>
                                 </tr>
                             </thead>
@@ -63,7 +64,7 @@
                                         </td>
                                       
                                         <td>
-                                            <img style="vertical-align: bottom;"  height="100" width="100" src="{{URL::asset('/assets/img/products/'.$product->image)}}" />
+                                            <img style="vertical-align: bottom;"  height="100" width="100" src="{{URL::asset('/assets/img/products/'.$product->image1)}}" />
                                         </td>
                                         <td>
                                             <span class="badge bg-info">{{  $product->category->name ?? '' }}</span>
@@ -84,6 +85,9 @@
                                         </td>
                                         <td>
                                             {{ $product->retailed_price ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $product->discount ?? '' }}
                                         </td>
                                         <td>
                                             {{ $product->created_at->format('M j , Y h:i A') }}
@@ -125,7 +129,7 @@
                        
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="form-label">Collection: <span class="text-danger">*</span></label>
+                                <label class="form-label">Category: <span class="text-danger">*</span></label>
                                 <select name="category" id="category" class="select2 form-control" style="width: 100%; ">
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
@@ -135,7 +139,18 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="form-label">Stock: </label>
+                                <label class="form-label">Size: <span class="text-danger">*</span></label>
+                                <select name="size" id="size" class="select2 form-control" style="width: 100%; ">
+                                    @foreach($sizes as $size)
+                                        <option value="{{$size->id}}">{{$size->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-label">Stock:  <span class="text-danger">*</span></label>
                                 <input type="number" name="stock" id="stock" class="form-control disabled" >
                                 <span class="invalid-feedback" role="alert">
                                     <strong id="error-stock"></strong>
@@ -144,7 +159,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="form-label">Unit Price: </label>
+                                <label class="form-label">Unit Price:  <span class="text-danger">*</span></label>
                                 <input type="number" name="unit_price" id="unit_price" class="form-control disabled" >
                                 <span class="invalid-feedback" role="alert">
                                     <strong id="error-unit_price"></strong>
@@ -153,10 +168,19 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="form-label">Profit: </label>
+                                <label class="form-label">Profit:  <span class="text-danger">*</span></label>
                                 <input type="number" name="retailed_price" id="retailed_price" class="form-control disabled" >
                                 <span class="invalid-feedback" role="alert">
                                     <strong id="error-retailed_price"></strong>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-label">Discount:  <span class="text-danger">*</span></label>
+                                <input type="number" name="discount" id="discount" class="form-control disabled" value="0" >
+                                <span class="invalid-feedback" role="alert">
+                                    <strong id="error-discount"></strong>
                                 </span>
                             </div>
                         </div>
@@ -169,14 +193,15 @@
                                 </span>
                             </div>
                         </div>
-                        
-                        <div class="col-sm-12">
+                        <br>
+                        <h6>IMAGE SECTION</h6>
+                        <div class="col-sm-6">
                             <div class="form-group" id="image-section">
-                                <label class="form-label">Image: <span class="text-danger">*</span></label>
+                                <label class="form-label">Image 1: <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-outline my-3">
-                                <input type="file" name="image" class="form-control image" accept="image/*" >
+                                <input type="file" name="image1" class="form-control image1" accept="image/*" >
                                     <span class="invalid-feedback" role="alert">
-                                        <strong id="error-image"></strong>
+                                        <strong id="error-image1"></strong>
                                     </span>
                                 </div>
                             </div>
@@ -187,10 +212,114 @@
                                     <br>
                                     <br>
                                     <br>
-                                            <small>Current Image:</small>
+                                            <small>Current Image1:</small>
                                     </div>
                                     <div class="col-6">
-                                            <img style="vertical-align: bottom;" id="current_image"  height="100" width="100" src="" />
+                                            <img style="vertical-align: bottom;" id="current_image1"  height="150" width="150" src="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group" id="image-section">
+                                <label class="form-label">Image 2: <span class="text-danger">*</span></label>
+                                <div class="input-group input-group-outline my-3">
+                                <input type="file" name="image2" class="form-control image2" accept="image/*" >
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong id="error-image2"></strong>
+                                    </span>
+                                </div>
+                            </div>
+                                
+                            <div class="current_img pt-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                    <br>
+                                    <br>
+                                    <br>
+                                            <small>Current Image2:</small>
+                                    </div>
+                                    <div class="col-6">
+                                            <img style="vertical-align: bottom;" id="current_image2"  height="150" width="150" src="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group" id="image-section">
+                                <label class="form-label">Image 3: <span class="text-danger">*</span></label>
+                                <div class="input-group input-group-outline my-3">
+                                <input type="file" name="image3" class="form-control image3" accept="image/*" >
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong id="error-image3"></strong>
+                                    </span>
+                                </div>
+                            </div>
+                                
+                            <div class="current_img pt-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                    <br>
+                                    <br>
+                                    <br>
+                                            <small>Current Image3:</small>
+                                    </div>
+                                    <div class="col-6">
+                                            <img style="vertical-align: bottom;" id="current_image3"  height="150" width="150" src="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group" id="image-section">
+                                <label class="form-label">Image 4: <span class="text-danger">*</span></label>
+                                <div class="input-group input-group-outline my-3">
+                                <input type="file" name="image4" class="form-control image4" accept="image/*" >
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong id="error-image4"></strong>
+                                    </span>
+                                </div>
+                            </div>
+                                
+                            <div class="current_img pt-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                    <br>
+                                    <br>
+                                    <br>
+                                            <small>Current Image4:</small>
+                                    </div>
+                                    <div class="col-6">
+                                            <img style="vertical-align: bottom;" id="current_image4"  height="150" width="150" src="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group" id="image-section">
+                                <label class="form-label">Image 5: <span class="text-danger">*</span></label>
+                                <div class="input-group input-group-outline my-3">
+                                <input type="file" name="image5" class="form-control image5" accept="image/*" >
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong id="error-image5"></strong>
+                                    </span>
+                                </div>
+                            </div>
+                                
+                            <div class="current_img pt-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                    <br>
+                                    <br>
+                                    <br>
+                                            <small>Current Image5:</small>
+                                    </div>
+                                    <div class="col-6">
+                                            <img style="vertical-align: bottom;" id="current_image5"  height="150" width="150" src="" />
                                     </div>
                                 </div>
                             </div>
@@ -292,9 +421,25 @@ $('#myForm').on('submit', function(event){
                         $('#'+key).addClass('is-invalid')
                         $('#error-'+key).text(value)
                     }
-                    if(key == 'image'){
-                        $('.image').addClass('is-invalid')
-                        $('#error-image').text(value)
+                    if(key == 'image1'){
+                        $('.image1').addClass('is-invalid')
+                        $('#error-image1').text(value)
+                    }
+                    if(key == 'image2'){
+                        $('.image2').addClass('is-invalid')
+                        $('#error-image2').text(value)
+                    }
+                    if(key == 'image3'){
+                        $('.image3').addClass('is-invalid')
+                        $('#error-image3').text(value)
+                    }
+                    if(key == 'image4'){
+                        $('.image4').addClass('is-invalid')
+                        $('#error-image4').text(value)
+                    }
+                    if(key == 'image5'){
+                        $('.image5').addClass('is-invalid')
+                        $('#error-image5').text(value)
                     }
                 })
             }
@@ -361,12 +506,28 @@ $(document).on('click', '.edit', function(){
                         data: { id: value }
                     });
                 }
-                if(key == 'image'){
-                    $('#current_image').attr("src", '/assets/img/products/'  + value);
+
+                if(key == 'size_id'){
+                    $("#size").select2("trigger", "select", {
+                        data: { id: value }
+                    });
                 }
-                if(key == 'expiration'){
-                    var exp = moment(value).format('YYYY-MM-DD');
-                    $("#expiration").val(exp);
+
+
+                if(key == 'image1'){
+                    $('#current_image1').attr("src", '/assets/img/products/'  + value);
+                }
+                if(key == 'image2'){
+                    $('#current_image2').attr("src", '/assets/img/products/'  + value);
+                }
+                if(key == 'image3'){
+                    $('#current_image3').attr("src", '/assets/img/products/'  + value);
+                }
+                if(key == 'image4'){
+                    $('#current_image4').attr("src", '/assets/img/products/'  + value);
+                }
+                if(key == 'image5'){
+                    $('#current_image5').attr("src", '/assets/img/products/'  + value);
                 }
             })
             $('#hidden_id').val(id);

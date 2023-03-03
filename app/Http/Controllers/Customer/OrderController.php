@@ -20,15 +20,36 @@ class OrderController extends Controller
         $product_d = [
             'name'         => $product->name,
             'category'     => $product->category->name,
-            'image'        => $product->image,
+            'image1'        => $product->image1,
+            'image2'        => $product->image2,
+            'image3'        => $product->image3,
+            'image4'        => $product->image4,
+            'image5'        => $product->image5,
             'description'        => $product->description,
             'stock'        => 'Stock: '. $product->stock,
             'price'        => 'Price: ₱ '. $product->unit_price,
-            'status_color' => $product->status == 'ONHAND' ? 'bg-success':'bg-warning',
+            'size'        => 'Size: '. $product->size->name,
+            'isStar'     => $product->reviewsIsStar(),
+            'discount'    => '('.'Less ₱ '. $product->discount .')',
         ];
+
+        $reviews = Review::where('product_id', $product->id)
+                            ->latest()
+                            ->get();
+
+        foreach($reviews as $review){
+            $reviews1[] = array(
+                'name'              => $review->user->name, 
+                'review'            => $review->review,
+                'isStar'            => $review->isStar,
+                'date_time'         => $review->created_at->diffForHumans(),
+            );
+        }
+        
 
         return response()->json([
             'product'      =>  $product_d,
+            'reviews'  => $reviews1 ?? '',
         ]);
 
     }
@@ -49,6 +70,8 @@ class OrderController extends Controller
         }
                         
         $amount = $product->unit_price * $request->input('qty');
+        $discounted = $product->discount * $request->input('qty');
+        $total_amt = $amount - $discounted;
 
         OrderProduct::updateOrcreate(
             [
@@ -61,7 +84,8 @@ class OrderController extends Controller
                 'product_id' => $product->id,
                 'product_name' => $product->name,
                 'qty'        => $request->input('qty'),
-                'amount'     => $amount,
+                'amount'     => $total_amt,
+                'discounted' => $discounted,
                 'price'      => $product->unit_price,
             ]
         );
@@ -83,17 +107,44 @@ class OrderController extends Controller
         $orders = [
             'name'         => $order->product->name,
             'category'     => $order->product->category->name,
-            'image'        => $order->product->image,
+
+            'image1'        => $order->product->image1,
+            'image2'        => $order->product->image2,
+            'image3'        => $order->product->image3,
+            'image4'        => $order->product->image4,
+            'image5'        => $order->product->image5,
+            
             'qty'          => $order->qty,
 
             'stock'        => 'Stock: '. $order->product->stock,
             'price'        => 'Price: ₱ '. $order->price,
+            'size'        => 'Size: '. $order->product->size->name,
+            'isStar'     => $order->product->reviewsIsStar(),
+            'discount'    => '('.'Less ₱ '. $order->product->discount .')',
+
+
             'description'  =>  $order->product->description ?? '',
         ];
 
+        $reviews = Review::where('product_id', $order->product->id)
+                            ->latest()
+                            ->get();
+        
+        foreach($reviews as $review){
+            $reviews1[] = array(
+                'name'              => $review->user->name, 
+                'review'            => $review->review,
+                'isStar'            => $review->isStar,
+                'date_time'         => $review->created_at->diffForHumans(),
+            );
+        }
+        
+
         return response()->json([
             'order'      =>  $orders,
+            'reviews'  => $reviews1 ?? '',
         ]);
+
 
     }
 
@@ -113,12 +164,18 @@ class OrderController extends Controller
             return response()->json(['errorstock' => 'Must be less than the stock.']);
         }
                         
-        $amount = $order->product->price * $request->input('qty');
+      
+        $amount = $order->product->unit_price * $request->input('qty');
+        $discounted = $order->product->discount * $request->input('qty');
+        $total_amt = $amount - $discounted;
+
+
         OrderProduct::find($order->id)->update(
             [
                 'qty'        => $request->input('qty'),
-                'amount'     => $amount,
-                'price'      => $order->product->price,
+                'amount'     => $total_amt,
+                'discounted' => $discounted,
+                'price'      => $order->product->unit_price,
             ]
         );
 
@@ -147,7 +204,7 @@ class OrderController extends Controller
             $total_amount = $orderproducts->sum->amount;
             $total = $fee + $total_amount;
         }else{
-            $fee = 100;
+            $fee = auth()->user()->shippingFee->fee;
             $total_amount = $orderproducts->sum->amount;
             $total = $fee + $total_amount;
         }

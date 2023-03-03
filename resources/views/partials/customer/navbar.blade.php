@@ -1,12 +1,15 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+@php
+            $layoutStyles = App\Models\LayoutStyle::where('id', 1)->first();
+@endphp
+
+<nav class="navbar navbar-expand-lg">
     <div class="container px-4 px-lg-5">
-        <img src="https://w7.pngwing.com/pngs/419/473/png-transparent-computer-icons-user-profile-login-user-heroes-sphere-black-thumbnail.png" width="40" height="40" class="d-inline-block align-top" alt="">
+        <img src="/assets/img/{{$layoutStyles->navbar_logo}}" width="70" height="70" class="d-inline-block align-top" alt="">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 text-uppercase">
                 <li class="nav-item"><a class="nav-link {{ request()->is('/') ? 'active' : '' }}" aria-current="page" href="/">Products</a></li>
                 <li class="nav-item"><a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">About Us</a></li>
-                <li class="nav-item"><a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">Contact Us</a></li>
                 @if(Auth::user())
                     <li class="nav-item"><a class="nav-link {{ request()->is('customer/orders_history') ? 'active' : '' }}" href="/customer/orders_history">Orders History</a></li>
                 @endif

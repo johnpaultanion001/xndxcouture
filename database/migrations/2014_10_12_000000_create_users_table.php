@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->longText('address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('role')->default('customer');
+            $table->string('city')->default(1);
+            $table->string('id_image')->nullable();
+            $table->boolean('isApproved')->default(false);
 
             $table->rememberToken();
             $table->timestamps();

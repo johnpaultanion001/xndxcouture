@@ -54,7 +54,7 @@ class HomeController extends Controller
                 'id'           => $item->id,
                 'name'         => $item->name,
                 'category'     => $item->category->name,
-                'image'        => $item->image,
+                'image'        => $item->image1,
                 'description'  => $item->description,
                 'price'        => $item->unit_price,
                 'status'       => $item->status,

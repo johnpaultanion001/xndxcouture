@@ -7,12 +7,15 @@
         <meta name="author" content="" />
         <title>{{ trans('panel.site_title') }}</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/assets/img/sample_image/logo_white.png" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ asset('/customer/css/styles.css') }}" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        @php
+            $layoutStyles = App\Models\LayoutStyle::where('id', 1)->first();
+        @endphp
         <style>
             .modal-footer{
                 display: flex; 
@@ -51,11 +54,30 @@
             top: 0;
             width: 100%;
             }
-            
+            .banner{
+                background: {{$layoutStyles->banner_color}};
+                color:{{$layoutStyles->banner_text_color}};
+            }
+          
+            .navbar{
+                color:{{$layoutStyles->navbar_text_color}};
+                background-color: {{$layoutStyles->navbar_color}};
+            }
+            .navbar .nav-link{
+                color: {{$layoutStyles->navbar_text_color}};
+            }
+            footer{
+                padding-bottom: 20px;
+                color: {{$layoutStyles->footer_text_color}};
+                background-color: {{$layoutStyles->footer_color}};
+                
+            }
+
         </style>
         @yield('styles')
     </head>
     <body>
+        
         <!-- Navigation-->
         @yield('navbar')
         <!-- Header-->

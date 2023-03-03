@@ -7,7 +7,15 @@ Route::get('/about', 'HomeController@about')->name('about');
 Route::get('/product/filter', 'HomeController@filter')->name('filter');
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
+Route::group(['prefix' => 'customer', 'as' => 'customer.', 'namespace' => 'Customer', 'middleware' => ['auth','verified']], function () {
+    Route::get('/approve', function() {
+           return view('auth.checkapprove');
+         });
+ });
+
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     // Dashboard
@@ -37,23 +45,33 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
      // CustomerList
      Route::get('customer_list', 'CustomerListController@index')->name('customer');
      Route::get('customer_list/{user}/edit', 'CustomerListController@edit')->name('customer.edit');
+     Route::get('customer_list/{user}/status', 'CustomerListController@status')->name('customer.status');
+
      Route::put('customer_list/{user}', 'CustomerListController@update')->name('customer.update');
      Route::put('customer_list/{user}/dpass', 'CustomerListController@defaultPassowrd')->name('customer.dpass');
 
      // Admin List
-     Route::get('admin_list', 'CustomerListController@admin_index')->name('admin');
-     Route::post('admin_list', 'CustomerListController@admin_store')->name('admin.store');
-     Route::put('admin_list/{admin}', 'CustomerListController@admin_update')->name('admin.update');
+     Route::get('staff_list', 'CustomerListController@staff_index')->name('staff');
+     Route::post('staff_list', 'CustomerListController@staff_store')->name('staff.store');
+     Route::put('staff_list/{staff}', 'CustomerListController@staff_update')->name('staff.update');
 
      // Change Status
      Route::put('customer/status/{user}', 'CustomerListController@status')->name('customer.status');
     
      // Categories
      Route::resource('categories', 'CategoryController');
+
+     // fees
+     Route::resource('fees', 'ShippingFeeController');
+
+     
+    Route::get('styles', 'LayoutStyleController@index')->name('styles.index');
+    Route::post('styles', 'LayoutStyleController@update')->name('styles.update');
+     
 });
 
 
-Route::group(['prefix' => 'customer', 'as' => 'customer.', 'namespace' => 'Customer', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'customer', 'as' => 'customer.', 'namespace' => 'Customer', 'middleware' => ['auth','checkapproved','verified']], function () {
     
     // ORDERS
     Route::get('product/{product}', 'OrderController@view')->name('product.view');
@@ -77,9 +95,6 @@ Route::group(['prefix' => 'customer', 'as' => 'customer.', 'namespace' => 'Custo
     // STORE REVIEW
     Route::get('review', 'ReviewController@review')->name('review.review');
 
-    // POST
-    Route::get('posts', 'PostController@index')->name('post.index');
-    Route::post('posts_store', 'PostController@store')->name('post.store');
-    Route::get('comments', 'CommentController@store')->name('comment.store');
+    
    
 });

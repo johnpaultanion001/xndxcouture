@@ -16,7 +16,7 @@ class Order extends Model
         'payment_option',
         'shipping_fee',
         'total_amount',
-        'isPaid',
+        'payment_status',
         'payment_receipt',
         'cancel_reason',
 

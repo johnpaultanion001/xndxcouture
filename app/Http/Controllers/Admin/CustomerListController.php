@@ -14,13 +14,29 @@ class CustomerListController extends Controller
     public function index()
     {
         $userrole = auth()->user()->role;
-        if($userrole == 'admin'){
+        if($userrole != 'customer'){
             $customers = User::where('role', 'customer')->latest()->get();
             return view('admin.customerlist', compact('customers'));
         }
         return abort('403');
     }
-    
+
+    public function status(User $user, Request $request){
+        if($user->isApproved == true){
+            User::find($user->id)->update([
+                'isApproved'    => false,
+            ]);
+        }
+
+        if($user->isApproved == false){
+            User::find($user->id)->update([
+                'isApproved'    => true,
+            ]);
+        }
+        
+        return response()->json(['success' => 'Updated Successfully.']);
+
+    }
 
     public function edit(User $user)
     {
@@ -61,37 +77,19 @@ class CustomerListController extends Controller
         return response()->json(['success' => 'Updated Successfully.']);
     }
 
-    public function status(User $user){
-
-        if($user->isApproved == "0"){
-            User::find($user->id)->update([
-                'isApproved'    => '1',
-            ]);
-        }
-
-        if($user->isApproved == "1"){
-            User::find($user->id)->update([
-                'isApproved'    => '0',
-            ]);
-        }
-
-        return response()->json(['success' => 'Updated Successfully.']);
-
-    }
-
 
     // ADMIN FUNCTION
 
-    public function admin_index(){
+    public function staff_index(){
         $userrole = auth()->user()->role;
         if($userrole == 'admin'){
-            $admins = User::where('role', 'admin')->latest()->get();
-            return view('admin.adminlist', compact('admins'));
+            $admins = User::where('role', 'staff')->latest()->get();
+            return view('admin.stafflist', compact('admins'));
         }
         return abort('403');
     }
 
-    public function admin_store(Request $request)
+    public function staff_store(Request $request)
     {
         date_default_timezone_set('Asia/Manila');
         $validated =  Validator::make($request->all(), [
@@ -108,8 +106,9 @@ class CustomerListController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
-            'role'     => 'admin',
-            'isApproved' => 1,
+            'role'     => 'staff',
+            'isApproved' => true,
+            'email_verified_at' => '2022-11-22 16:42:58',
         ]);
 
         return response()->json(['success' => 'Created Successfully.']);
@@ -117,7 +116,7 @@ class CustomerListController extends Controller
       
     }
 
-    public function admin_update(Request $request , User $admin){
+    public function staff_update(Request $request , User $admin){
         date_default_timezone_set('Asia/Manila');
         $validated =  Validator::make($request->all(), [
             'name' => ['string', 'required', 'max:255'],

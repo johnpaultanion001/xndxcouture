@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('payment_option');
             $table->float('shipping_fee');
             $table->float('total_amount');
-            $table->boolean('isPaid')->default(false);
+            $table->string('payment_status')->default('ON PROCESS');
             $table->string('payment_receipt')->nullable();
             $table->string('cancel_reason')->nullable();
             $table->timestamps();

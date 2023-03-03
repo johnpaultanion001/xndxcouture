@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function index()
     {
         $userrole = auth()->user()->role;
-        if($userrole == 'admin'){
+        if($userrole != 'customer'){
             date_default_timezone_set('Asia/Manila');
             $categories = Category::latest()->get();
 

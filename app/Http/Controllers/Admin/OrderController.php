@@ -17,7 +17,7 @@ class OrderController extends Controller
     public function orders()
     {
         $userrole = auth()->user()->role;
-        if($userrole == 'admin'){
+        if($userrole != 'customer'){
             $orders = Order::latest()->get();
             return view('admin.orders' ,compact('orders'));
         }
@@ -45,15 +45,21 @@ class OrderController extends Controller
 
         if($type == 'PAID')
         {
-            if($order->isPaid == true){
+            if($order->payment_status == 'ON PROCESS'){
                 Order::find($order->id)->update([
-                    'isPaid'    => false,
+                    'payment_status'    => 'PAID',
                 ]);
             }
     
-            if($order->isPaid == false){
+            if($order->payment_status == 'PAID'){
                 Order::find($order->id)->update([
-                    'isPaid'    => true,
+                    'payment_status'    => 'DECLINED',
+                ]);
+            }
+
+            if($order->payment_status == 'DECLINED'){
+                Order::find($order->id)->update([
+                    'payment_status'    => 'ON PROCESS',
                 ]);
             }
         }else{
@@ -96,7 +102,7 @@ class OrderController extends Controller
                                 ->where('isCheckout', true)->where('status', 'APPROVED')->get();
 
             $chartSales  = OrderProduct::where('isCheckout','1')->where('status','APPROVED')
-                                ->selectRaw('sum(amount) as total_sales, DATE(created_at) as data')
+                                ->selectRaw('sum(amount) as total_sales, DATE(created_at) as data, sum(amount) + sum(price)  as total_predict')
                                 ->groupBy('data')
                                 ->get();
         }
@@ -107,7 +113,7 @@ class OrderController extends Controller
 
             $chartSales  = OrderProduct::where('isCheckout','1')->where('status','APPROVED')
                                  ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-                                ->selectRaw('sum(amount) as total_sales, DATE(created_at) as data')
+                                ->selectRaw('sum(amount) as total_sales, DATE(created_at) as data, sum(amount) + sum(price)  as total_predict')
                                 ->groupBy('data')
                                 ->get();
 
@@ -118,7 +124,7 @@ class OrderController extends Controller
             $sales = OrderProduct::latest()->whereMonth('created_at', '=', date('m'))->whereYear('created_at', '=', date('Y'))
                                     ->where('isCheckout', true)->where('status', 'APPROVED')->get();
             $chartSales  = OrderProduct::where('isCheckout','1')->where('status','APPROVED')
-                        ->selectRaw("sum(amount) as total_sales, DATE_FORMAT(created_at, '%m-%Y') as data")
+                        ->selectRaw("sum(amount) as total_sales, DATE_FORMAT(created_at, '%m-%Y') as data, sum(amount) + sum(price)  as total_predict")
                         ->groupBy('data')
                         ->get();
         }
@@ -127,7 +133,7 @@ class OrderController extends Controller
             $sales = OrderProduct::latest()->whereYear('created_at', '=', date('Y'))
                                     ->where('isCheckout', true)->where('status', 'APPROVED')->get();
             $chartSales  = OrderProduct::where('isCheckout','1')->where('status','APPROVED')
-                                    ->selectRaw("sum(amount) as total_sales, DATE_FORMAT(created_at, '%Y') as data")
+                                    ->selectRaw("sum(amount) as total_sales, DATE_FORMAT(created_at, '%Y') as data, sum(amount) + sum(price)  as total_predict")
                                     ->groupBy('data')
                                     ->get();
         }
@@ -135,7 +141,7 @@ class OrderController extends Controller
             $title_filter  = 'ALL RECORDS';
             $sales = OrderProduct::latest()->where('isCheckout', true)->where('status', 'APPROVED')->get();
             $chartSales  = OrderProduct::where('isCheckout','1')->where('status','APPROVED')
-                                    ->selectRaw('sum(amount) as total_sales, DATE(created_at) as data')
+                                    ->selectRaw('sum(amount) as total_sales, DATE(created_at) as data, sum(amount) + sum(price)  as total_predict')
                                     ->groupBy('data')
                                     ->get();
         }
@@ -144,7 +150,7 @@ class OrderController extends Controller
             $sales = OrderProduct::latest()->where('isCheckout', true)->where('status', 'APPROVED')->whereBetween('created_at', [$from, $to])->get();
             $chartSales  = OrderProduct::where('isCheckout','1')->where('status','APPROVED')
                                     ->whereBetween('created_at', [$from, $to])
-                                    ->selectRaw('sum(amount) as total_sales, DATE(created_at) as data')
+                                    ->selectRaw('sum(amount) as total_sales, DATE(created_at) as data, sum(amount) + sum(price)  as total_predict')
                                     ->groupBy('data')
                                     ->get();
         }
@@ -158,9 +164,10 @@ class OrderController extends Controller
 
         $labels = $chartSales->pluck('data')->toArray();
         $data = $chartSales->pluck('total_sales')->toArray();
+        $datap = $chartSales->pluck('total_predict')->toArray(); 
 
 
-        return view('admin.sales_reports.sales_reports', compact('sales','title_filter','labels','data'));
+        return view('admin.sales_reports.sales_reports', compact('sales','title_filter','labels','data','datap'));
        
     }
     

@@ -54,7 +54,7 @@ class LoginController extends Controller
         
          if(Auth::user()->role == 'customer'){
              $redirectTo = '/';
-         }else if(Auth::user()->role == 'admin'){
+         }else{
              $redirectTo = '/admin/dashboard';
          }
 

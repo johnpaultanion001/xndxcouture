@@ -194,13 +194,22 @@ $(function () {
             type: 'line',
             data: {
                 labels: @json($labels),
-                datasets: [{
-                    label: 'Sales Chart',
-                    data: @json($data),
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
+                datasets: [
+                    {
+                        label: 'Sales Chart',
+                        data: @json($data),
+                        backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        borderColor: "rgba(78, 115, 223, 1)",
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Prediction',
+                        data: @json($datap),
+                        backgroundColor: "rgba(19, 161, 52, 0.13)",
+                        borderColor: "rgba(19, 161, 52, 0.13)",
+                        borderWidth: 3
+                    },
+                ]
             },
             options: {
                 scales: {

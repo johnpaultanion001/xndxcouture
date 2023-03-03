@@ -2,8 +2,7 @@
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
     <a class="navbar-brand m-0 text-center" href="/admin/dashboard">
-      <!-- <img class="bi me-2" src="/assets/img/logo.jpg" alt="logo" width="50" height="42"> -->
-      {{ trans('panel.site_title') }} 
+    <img src="/assets/img/sample_image/logo_black.png" width="100" height="70" class="d-inline-block align-top" alt="">
     </a>
   </div>
   <hr class="horizontal light mt-0 mb-2">
@@ -45,6 +44,14 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link text-dark {{ request()->is('admin/fees') || request()->is('admin/fees/*') ? 'bg-gradient-dark text-white' : '' }}" href="{{ route("admin.fees.index") }}">
+          <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-tag {{ request()->is('admin/fees') || request()->is('admin/fees/*') ? 'text-white' : '' }}" style="font-size: 17px"></i>
+          </div>
+          <span class="nav-link-text ms-1 text-uppercase">Shipping Fees</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link text-dark {{ request()->is('admin/customer_list') || request()->is('admin/customer_list/*') ? 'bg-gradient-dark text-white' : '' }}" href="{{ route("admin.customer") }}">
           <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
             <i class="material-icons opacity-10 {{ request()->is('admin/customer_list') || request()->is('admin/customer_list/*') ? 'text-white' : '' }}">person</i>
@@ -52,15 +59,34 @@
           <span class="nav-link-text ms-1 text-uppercase">Customers</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark {{ request()->is('admin/sales_reports') || request()->is('admin/sales_reports/*') ? 'bg-gradient-dark text-white' : '' }}" href="/admin/sales_reports/daily/daily/daily">
-          <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="fas fa-list {{ request()->is('admin/sales_reports') || request()->is('admin/sales_reports/*') ? 'text-white' : '' }}" style="font-size: 17px"></i>
-          </div>
-          <span class="nav-link-text ms-1 text-uppercase">Sales Reports</span>
-        </a>
-      </li>
-  
+      @if(Auth()->user()->role == 'admin')
+        <li class="nav-item">
+          <a class="nav-link text-dark {{ request()->is('admin/staff_list') || request()->is('admin/staff_list/*') ? 'bg-gradient-dark text-white' : '' }}" href="/admin/staff_list">
+            <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-list {{ request()->is('admin/staff_list') || request()->is('admin/staff_list/*') ? 'text-white' : '' }}" style="font-size: 17px"></i>
+            </div>
+            <span class="nav-link-text ms-1 text-uppercase">Manage Staff</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark {{ request()->is('admin/sales_reports') || request()->is('admin/sales_reports/*') ? 'bg-gradient-dark text-white' : '' }}" href="/admin/sales_reports/daily/daily/daily">
+            <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-list {{ request()->is('admin/sales_reports') || request()->is('admin/sales_reports/*') ? 'text-white' : '' }}" style="font-size: 17px"></i>
+            </div>
+            <span class="nav-link-text ms-1 text-uppercase">Saleforecast</span>
+          </a>
+        </li>
+      @endif
+      @if(Auth()->user()->role == 'staff')
+        <li class="nav-item">
+          <a class="nav-link text-dark {{ request()->is('admin/styles') || request()->is('admin/styles/*') ? 'bg-gradient-dark text-white' : '' }}" href="/admin/styles">
+            <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-list {{ request()->is('admin/styles') || request()->is('admin/styles/*') ? 'text-white' : '' }}" style="font-size: 17px"></i>
+            </div>
+            <span class="nav-link-text ms-1 text-uppercase">Manage Styles</span>
+          </a>
+        </li>
+      @endif
    
     </ul>
   </div>

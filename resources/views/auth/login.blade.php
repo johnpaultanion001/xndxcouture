@@ -4,16 +4,14 @@
 @endsection
 
 @section('content')
-<header class="py-5" style="
-background: #0F2027;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+@php
+    $layoutStyles = App\Models\LayoutStyle::where('id', 1)->first();
+@endphp
 
-">
+<header class="py-5 banner">
     <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <!-- <img src="https://w7.pngwing.com/pngs/419/473/png-transparent-computer-icons-user-profile-login-user-heroes-sphere-black-thumbnail.png" width="150" height="150" class="d-inline-block align-top" alt=""> -->
-            <h1 class="text-uppercase">{{ trans('panel.site_title') }}</h1>
+        <div class="text-center">
+           <img src="/assets/img/{{$layoutStyles->banner_logo}}" alt="" width = "20%">
         </div>
     </div>
 </header>

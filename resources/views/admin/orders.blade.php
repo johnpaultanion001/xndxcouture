@@ -70,16 +70,14 @@
                                             @if($order->status != 'CANCELLED')
                                                 <button type="button" name="status" status="{{  $order->id ?? '' }}" action_type="PAID"
                                                     class="btn btn-sm 
-                                                    @if($order->isPaid == true)
+                                                    @if($order->payment_status == 'PAID')
                                                         btn-success status
+                                                    @elseif($order->payment_status == 'DECLINED')
+                                                        btn-danger status
                                                     @else 
                                                         btn-warning status
                                                     @endif">
-                                                    @if($order->isPaid == true)
-                                                        PAID
-                                                    @else 
-                                                        NOT PAID
-                                                    @endif
+                                                   {{$order->payment_status}}
                                                 </button>
                                             @endif
                                         </td>
@@ -88,7 +86,7 @@
                                         </td>
                                         <td>
                                             <span class="badge bg-primary">{{  $order->payment_option ?? '' }}</span>
-                                            @if($order->payment_option == 'GCASH')
+                                            @if($order->payment_option != 'COD')
                                             <h6  class="text-s mt-2 text-uppercase">uploaded receipt:   <a target="_blank" href="/assets/img/resibo/{{$order->payment_receipt ?? ''}}">{{$order->payment_receipt ?? ''}}</a></h6>
                                             @endif
                                         </td>

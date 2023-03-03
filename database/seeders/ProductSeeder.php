@@ -18,9 +18,10 @@ class ProductSeeder extends Seeder
         $products = [
             [   
                 'id'              => '1',
-                'image'           => 'p1.png',
+                'image1'           => 'p1.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '1',
+                'size_id'     => '1',
                 'description'     => 'This is sample product',
                 
                 'unit_price'           => '120',
@@ -31,9 +32,10 @@ class ProductSeeder extends Seeder
             ],
             [   
                 'id'              => '2',
-                'image'           => 'p2.png',
+                'image1'           => 'p2.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '2',
+                'size_id'     => '2',
                 'description'     => 'This is sample product',
                 
                 'unit_price'           => '120',
@@ -44,9 +46,10 @@ class ProductSeeder extends Seeder
             ],
             [   
                 'id'              => '3',
-                'image'           => 'p3.png',
+                'image1'           => 'p3.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '1',
+                'size_id'     => '3',
                 'description'     => 'This is sample product',
                 
                 'unit_price'           => '120',
@@ -57,9 +60,10 @@ class ProductSeeder extends Seeder
             ],
             [   
                 'id'              => '4',
-                'image'           => 'p1.png',
+                'image1'           => 'p1.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '2',
+                'size_id'     => '3',
                 'description'     => 'This is sample product',
                 
                 'unit_price'           => '120',
@@ -70,9 +74,10 @@ class ProductSeeder extends Seeder
             ],
             [   
                 'id'              => '5',
-                'image'           => 'p2.png',
+                'image1'           => 'p2.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '1',
+                'size_id'     => '4',
                 'description'     => 'This is sample product',
                 
                 'unit_price'           => '120',
@@ -83,9 +88,10 @@ class ProductSeeder extends Seeder
             ],
             [   
                 'id'              => '6',
-                'image'           => 'p3.png',
+                'image1'           => 'p3.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '1',
+                'size_id'     => '3',
                 'description'     => 'This is sample product',
                 
                 'unit_price'           => '120',
@@ -96,9 +102,10 @@ class ProductSeeder extends Seeder
             ],
             [   
                 'id'              => '7',
-                'image'           => 'p2.png',
+                'image1'           => 'p2.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '1',
+                'size_id'     => '1',
                 'description'     => 'This is sample product',
                 
                 'unit_price'           => '120',
@@ -109,9 +116,10 @@ class ProductSeeder extends Seeder
             ],
             [   
                 'id'              => '8',
-                'image'           => 'p3.png',
+                'image1'           => 'p3.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '1',
+                'size_id'     => '4',
                 'description'     => 'This is sample product',
                 
                 'unit_price'           => '120',
@@ -122,9 +130,10 @@ class ProductSeeder extends Seeder
             ],
             [   
                 'id'              => '9',
-                'image'           => 'p3.png',
+                'image1'           => 'p3.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '1',
+                'size_id'     => '2',
                 'description'     => 'This is sample product',
                
                 'unit_price'           => '120',
@@ -135,9 +144,10 @@ class ProductSeeder extends Seeder
             ],
             [   
                 'id'              => '10',
-                'image'           => 'p2.png',
+                'image1'           => 'p2.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '1',
+                'size_id'     => '2',
                 'description'     => 'This is sample product',
 
                 'unit_price'           => '120',
@@ -148,9 +158,10 @@ class ProductSeeder extends Seeder
             ],
             [   
                 'id'              => '11',
-                'image'           => 'p3.png',
+                'image1'           => 'p3.png',
                 'name'            => 'Sample Product',
                 'category_id'     => '1',
+                'size_id'     => '1',
                 'description'     => 'This is sample product',
                 
                 'unit_price'           => '120',
