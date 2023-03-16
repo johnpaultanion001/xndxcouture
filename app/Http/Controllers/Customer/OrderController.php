@@ -58,7 +58,7 @@ class OrderController extends Controller
     {
         date_default_timezone_set('Asia/Manila');
         $validated =  Validator::make($request->all(), [
-            'qty'  => ['required' ,'integer','min:1'],
+            'qty'  => ['required' ,'integer','min:1','max:3'],
         ]);
 
         if ($validated->fails()) {
@@ -152,7 +152,7 @@ class OrderController extends Controller
     {
         date_default_timezone_set('Asia/Manila');
         $validated =  Validator::make($request->all(), [
-            'qty'  => ['required' ,'integer','min:1'],
+            'qty'  => ['required' ,'integer','min:1','max:3',],
         ]);
 
         if ($validated->fails()) {
@@ -223,6 +223,7 @@ class OrderController extends Controller
             'shipping_fee'  => $fee,
             'total_amount' => $total,
             'payment_receipt' => $file_name_to_save ?? '',
+            'note' => $request->input('note'),
         ]);
         foreach($orderproducts as $order){
                 if($order->qty > $order->product->stock){

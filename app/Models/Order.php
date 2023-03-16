@@ -19,6 +19,7 @@ class Order extends Model
         'payment_status',
         'payment_receipt',
         'cancel_reason',
+        'note',
 
     ];
 

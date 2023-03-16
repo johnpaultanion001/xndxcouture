@@ -5,6 +5,7 @@
             <p class="text-uppercase text-dark">Name: {{$order->user->name ?? ''}}</p>
             <p class="text-uppercase text-dark">Address: {{$order->user->address ?? ''}}</p>
             <p class="text-uppercase text-dark">Contact #: {{$order->user->contact_number ?? ''}}</p>
+            <p class="text-uppercase text-dark">Note : {{$order->note ?? ''}}</p>
             <hr style="border-top: 2px dashed gray;">
             <p class="text-uppercase text-dark">DATE: {{ \Carbon\Carbon::parse($order->created_at)->format('d-m-Y / h:i:s A')}}</p>
             <hr style="border-top: 2px dashed gray;">

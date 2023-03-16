@@ -198,7 +198,7 @@
                             </div>
                             <div class="form-group mt-2">
                                 <h6>QTY <span class="text-danger">*</span></h6>
-                                <input type="number" name="qty" id="qty" class="form-control disabled" onfocus="focused(this)" onfocusout="defocused(this)">
+                                <input type="number" name="qty" id="qty" value="1" class="form-control disabled" onfocus="focused(this)" onfocusout="defocused(this)">
                                 <span class="invalid-feedback" role="alert">
                                     <strong id="error-qty"></strong>
                                 </span>
@@ -234,9 +234,9 @@
             </div>
             <div class="col-3 p-3 pt-3 ">
                 <h3>Contact us</h3>
-                <a href="/"><img src="assets/img/Facebook-logo.webp" alt="" style = "width:20%;margin-left:-11px;"></a>
+                <a href="https://www.facebook.com/XndxClothing?mibextid=LQQJ4d" target="_blank"><img src="assets/img/Facebook-logo.webp" alt="" style = "width:20%;margin-left:-11px;"></a>
                 <br>
-                <a href="/" ><img src="assets/img/instagram-Logo-PNG-Transparent-Background-download.webp" alt="" style = "width:14%;"></a>
+                <a href="https://instagram.com/xndxcouture?igshid=YmMyMTA2M2Y=" target="_blank"><img src="assets/img/instagram-Logo-PNG-Transparent-Background-download.webp"  alt="" style = "width:14%;"></a>
                 <br>
                 <img src="assets/img/phone_logo.webp" alt="" style = "width:13%">+63-9516439050
             </div>

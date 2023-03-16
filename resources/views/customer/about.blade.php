@@ -9,6 +9,20 @@
         <div class="text-center">
             <h4 class="">ABOUT US</h4>
         </div>
+        <div class="card">
+            <div class="card-body text-center">
+            <p>
+            The XNDX Couture is an online tailor shop for women's custom clothing. We pride ourselves on delivering good quality and stylish clothing to see our clients breathe life into our pieces.
+We offer personalised fashion solutions to ensure that every woman get only the best outfit.
+<br>
+<br>
+<br>
+
+If you want to customize clothes you can contact us in our social media accounts for other concerns.
+            </p>
+            </div>
+         
+        </div>
     </div>
 </header>
 

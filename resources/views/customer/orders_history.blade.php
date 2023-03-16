@@ -33,6 +33,7 @@
                                             <div class="col-md-6">
                                                 <h6 class="mb-1 text-dark text-sm">
                                                     @foreach($order->orderproducts as $product_order)
+                                                        <img  width="30" height="30" src="/assets/img/products/{{$product_order->product->image1 ?? ''}}" alt=""  class="border-radius-lg shadow"/>
                                                         <span class="badge bg-warning">{{$product_order->qty ?? ''}} {{$product_order->product->name ?? ''}} * {{$product_order->price ?? ''}} = {{$product_order->amount ?? ''}} </span>
                                                         <div class="badge ml-2  {{$product_order->product->status == 'ONHAND' ? 'bg-success':'bg-warning'}} text-white position-absolute text-uppercase">{{$product_order->product->status ?? ''}}</div>
 
@@ -59,7 +60,8 @@
                                                         bg-warning 
                                                     @endif">{{$order->payment_status}} </span>
                                                 </h6>
-                                                @if($order->payment_option == 'GCASH')
+                                                <h6  class="text-s mt-2 text-uppercase">NOTE:  {{$order->note ?? ''}}</h6>
+                                                @if($order->payment_option != 'COD')
                                                 <h6  class="text-s mt-2 text-uppercase">uploaded receipt:   <a target="_blank" href="/assets/img/resibo/{{$order->payment_receipt ?? ''}}">{{$order->payment_receipt ?? ''}}</a></h6>
                                                 @endif
                                                 <button class="btn btn-danger btn-sm cancel" cancel="{{$order->id}}">CANCEL</button>
@@ -99,6 +101,7 @@
                                             <div class="col-md-6">
                                                 <h6 class="mb-1 text-dark text-sm">
                                                         @foreach($order->orderproducts as $product_order)
+                                                            <img  width="30" height="30" src="/assets/img/products/{{$product_order->product->image1 ?? ''}}" alt=""  class="border-radius-lg shadow" />
                                                             <span class="badge bg-success">{{$product_order->qty ?? ''}} {{$product_order->product->name ?? ''}} * {{$product_order->price ?? ''}} = {{$product_order->amount ?? ''}}</span> 
                                                             <br> 
                                                         @php
@@ -154,10 +157,10 @@
                                                     </h6>
                                                     <h6 class="text-xs text-uppercase"> {{ $order->created_at->format('M j , Y h:i A') }}</h6>
                                                     
-                                                    <button type="button" receipt="{{  $order->id ?? '' }}" 
+                                                    <!-- <button type="button" receipt="{{  $order->id ?? '' }}" 
                                                     class="btn btn-sm btn-success receipt">
                                                     RECEIPT
-                                                </button>
+                                                </button> -->
                                             </div>
                                             <div class="col-md-6">
                                                 <h6  class="text-s mt-2">SUBTOTAL: <span class="text-primary"> ₱  {{number_format($order->orderproducts->sum->amount?? '' , 2, '.', ',')}}</span> </h6>
@@ -175,7 +178,8 @@
                                                         bg-warning 
                                                     @endif">{{$order->payment_status}} </span>
                                                 </h6>
-                                                @if($order->payment_option == 'GCASH')
+                                                <h6  class="text-s mt-2 text-uppercase">NOTE:  {{$order->note ?? ''}}</h6>
+                                                @if($order->payment_option != 'COD')
                                                 <h6  class="text-s mt-2 text-uppercase">uploaded receipt:   <a target="_blank" href="/assets/img/resibo/{{$order->payment_receipt ?? ''}}">{{$order->payment_receipt ?? ''}}</a></h6>
                                                 @endif
                                                 

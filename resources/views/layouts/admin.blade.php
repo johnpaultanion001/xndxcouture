@@ -48,7 +48,9 @@
     @stack('page_css')
 
     <style>
-       
+         .navbar-vertical.navbar-expand-xs .navbar-collapse {
+      height: calc(100vh - 160px) !important;
+  }
         .select2-container--default .select2-selection--single {
             border: 1px solid white;
             border-radius: 4px;

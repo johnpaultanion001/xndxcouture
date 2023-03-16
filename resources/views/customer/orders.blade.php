@@ -44,7 +44,7 @@ footer{
                             @forelse($orders as $order)
                                     <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 pt-0">
                                         <div class="avatar me-3">
-                                            <img src="/assets/img/products/{{$order->product->image}}" alt="{{$order->product->image}}" class="border-radius-lg shadow">
+                                            <img src="/assets/img/products/{{$order->product->image1 ?? ''}}" alt="{{$order->product->image1 ?? ''}}" class="border-radius-lg shadow">
                                         </div>
                                         <div class="d-flex align-items-start flex-column justify-content-center">
                                             <h6 class="mb-0">{{$order->product->name}}</h6>
@@ -155,11 +155,29 @@ footer{
                                     </li>
                                         
 
-                                    <button type="submit" class="btn-success btn " id="checkout">CHECK OUT</button>
+                                    <button type="button" class="btn-success btn" data-toggle="modal" data-target="#addingNote">CHECK OUT</button>
                         </ul>
                     </div>
+
+                    <div class="modal fade" id="addingNote" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="text-uppercase font-weight-bold">ADDING NOTE</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                x
+                                </button>
+                            </div>
+                                <div class="modal-body">
+                                    <label for="note">Note:</label>
+                                    <textarea name="note" id="note" class="form-control"></textarea>
+                                </div>
+                                <button type="submit" class="btn-success btn " id="checkout">SUBMIT</button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
-                </div>
+            </div>
         </div>
     </div>
     
@@ -241,7 +259,7 @@ footer{
                             </div>
                             <div class="form-group mt-2">
                                 <h6>QTY <span class="text-danger">*</span></h6>
-                                <input type="number" name="qty" id="qty" class="form-control disabled" onfocus="focused(this)" onfocusout="defocused(this)">
+                                <input type="number" name="qty" id="qty" class="form-control disabled" value="1" onfocus="focused(this)" onfocusout="defocused(this)">
                                 <span class="invalid-feedback" role="alert">
                                     <strong id="error-qty"></strong>
                                 </span>

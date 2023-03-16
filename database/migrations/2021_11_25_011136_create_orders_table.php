@@ -24,6 +24,7 @@ class CreateOrdersTable extends Migration
             $table->string('payment_status')->default('ON PROCESS');
             $table->string('payment_receipt')->nullable();
             $table->string('cancel_reason')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }
